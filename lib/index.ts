@@ -41,11 +41,18 @@ const run = async () => {
   await browser.close();
 };
 
-run().catch((error) => {
-    console.error('CATCH ERROR: ', error);
-    process.exit(1);
-});
+export async function main(argv: string[]) {
+  run().catch((error) => {
+      console.error('CATCH ERROR: ', error);
+      process.exit(1);
+  });
+}
 
-module.exports = {
-  run,
-};
+if (require.main === module) {
+  main(process.argv)
+    .then(s => process.stdout.write(s as string, 'binary'))
+    .catch(error => {
+      console.error(error);
+      process.exit(2);
+    });
+}

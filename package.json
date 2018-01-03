@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "typescript": "^2.4.2",
+    "ding-env-config": "^1.2.0",
+    "lodash.defaultsdeep": "^4.6.0",    
     "puppeteer": "^0.13.0",
     "commander": "^2.12.2"
   },
