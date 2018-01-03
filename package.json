@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "xinhua dictionary",
   "bin": {
-    "xhzd": "out/lib/run.js"
+    "xhzd": "out/run.js"
   },
   "license": "MIT",
   "scripts": {
