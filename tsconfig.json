@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "declaration": true,
+        "allowJs": true,
         "outDir": "./out",
         "target": "es2015",
         "module": "commonjs",
