@@ -24,7 +24,7 @@ const run = async () => {
 
   await page.type("#wd", p.hanzi);
   await page.click("#zisubmit");
-  await page.waitForNavigation({ waitUntil: 'networkidle' });
+  await page.waitForNavigation({ waitUntil: 'networkidle2' });
 
   await page.screenshot({ path: './dev-images/xhzd.png' });
   
