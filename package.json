@@ -1,0 +1,25 @@
+{
+  "name": "xhzd",
+  "version": "0.1.0",
+  "description": "xinhua dictionary",
+  "bin": {
+    "xhzd": "out/lib/index.js"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && cp -Rf test/fixtures out/test/ && mocha --ui tdd out/test/",
+    "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "typescript": "^2.4.2",
+    "puppeteer": "^0.13.0",
+    "commander": "^2.12.2"
+  },
+  "devDependencies": {
+    "@types/puppeteer": "^0.12.3",
+    "eslint": "^4.11.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  }
+}
