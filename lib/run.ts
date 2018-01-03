@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-import * as puppeteer from "puppeteer"
+import * as puppeteer from "puppeteer";
 //const puppeteer = require('puppeteer');
 const config = require('./config');
   
