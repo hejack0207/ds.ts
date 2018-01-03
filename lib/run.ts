@@ -26,8 +26,6 @@ const run = async () => {
   await page.click("#zisubmit");
   await page.waitForNavigation({ waitUntil: 'networkidle2' });
 
-  await page.screenshot({ path: './dev-images/xhzd.png' });
-  
   const brief = await page.$eval('.text15',e => e.innerText);
   const folk = await page.$eval('#div_a1 > div:nth-child(7)',e => e.innerText);
   const glyph = await page.$eval('#div_a1 > div:nth-child(8)',e => e.innerText)
@@ -37,7 +35,8 @@ const run = async () => {
   //console.log('definition:%j',definition);
   console.log('definition:',JSON.stringify(definition, null, 2));
 
-  console.log('png saved!');
+  //await page.screenshot({ path: './dev-images/xhzd.png' });
+  //console.log('png saved!');
 
   await browser.close();
 };
