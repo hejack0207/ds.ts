@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
-const puppeteer = require('puppeteer');
-const config = require('../config');
+import * as puppeteer from "puppeteer"
+//const puppeteer = require('puppeteer');
+const config = require('./config');
   
 const run = async () => {
 
@@ -23,7 +24,7 @@ const run = async () => {
 
   await page.type("#wd", p.hanzi);
   await page.click("#zisubmit");
-  await page.waitForNavigation({ waitUntil: 'networkidle2' });
+  await page.waitForNavigation({ waitUntil: 'networkidle' });
 
   await page.screenshot({ path: './dev-images/xhzd.png' });
   
@@ -49,10 +50,5 @@ export async function main(argv: string[]) {
 }
 
 if (require.main === module) {
-  main(process.argv)
-    .then(s => process.stdout.write(s as string, 'binary'))
-    .catch(error => {
-      console.error(error);
-      process.exit(2);
-    });
+  main(process.argv);
 }
