@@ -10,7 +10,12 @@ const run = async () => {
   var p = require('commander');
   p.version('1.0.0')
     .usage('cmd\n E.g. xhzd -z hanzi\n')
-    .option("-z,--hanzi <hanzi>");
+    .option("-z,--hanzi <hanzi>","specify hanzi to search")
+    .option("-b,--brief","enable brief output")
+    .option("-e,--expl","enable explanation output")
+    .option("-f,--folk","enable folk output")
+    .option("-g,--glyph","enable glyph output")
+    .option("-p,--phonation","enable phonation output")
   p.parse(process.argv);
   console.log(p.hanzi+"\n");
 
@@ -26,18 +31,18 @@ const run = async () => {
   await page.click("#zisubmit");
   await page.waitForNavigation({ waitUntil: 'networkidle2' });
 
-  const brief = await page.$eval('.text15',e => e.innerText);
-  const folk = await page.$eval('#div_a1 > div:nth-child(7)',e => e.innerText);
-  const glyph = await page.$eval('#div_a1 > div:nth-child(8)',e => e.innerText)
-  const expla = await page.$eval('#div_a1 > div:nth-child(9)',e => e.innerText)
-  const phonation = await page.$eval('#div_a1 > div:nth-child(10)',e => e.innerText)
-  var definition = { brief : brief, folk : folk, glyph : glyph, expla : expla, phonation : phonation };
+  const brief_output = await page.$eval('.text15',e => e.innerText);
+  const folk_output = await page.$eval('#div_a1 > div:nth-child(7)',e => e.innerText);
+  const glyph_output = await page.$eval('#div_a1 > div:nth-child(8)',e => e.innerText)
+  const expla_output = await page.$eval('#div_a1 > div:nth-child(9)',e => e.innerText)
+  const phonation_output = await page.$eval('#div_a1 > div:nth-child(10)',e => e.innerText)
+  var definition = { brief : brief_output, folk : folk_output, glyph : glyph_output, expla : expla_output, phonation : phonation_output };
   //console.log('definition:%j',definition);
-  console.log(brief+"\n");
-  console.log(folk);
-  console.log(glyph);
-  console.log(expla);
-  console.log(phonation);
+  p.brief && console.log(brief_output+"\n");
+  p.folk && console.log(folk_output);
+  p.glyph && console.log(glyph_output);
+  p.expl && console.log(expla_output);
+  p.phonation && console.log(phonation_output);
   //console.log('definition:',JSON.stringify(definition, null, 2));
 
   //await page.screenshot({ path: './dev-images/xhzd.png' });

@@ -10,5 +10,6 @@
             "types"
         ]
     },
-    "include": ["lib", "test"]
+    "include": ["lib", "test"],
+    "files": ["node_modules/commander/typings/index.d.ts"]
 }
