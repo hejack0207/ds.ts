@@ -12,7 +12,7 @@ const run = async () => {
     .usage('cmd\n E.g. xhzd -z hanzi\n')
     .option("-z,--hanzi <hanzi>");
   p.parse(process.argv);
-  console.log("hanzi:"+p.hanzi);
+  console.log(p.hanzi+"\n");
 
   const browser = await puppeteer.launch(config.puppeteer);
   const page = await browser.newPage();
@@ -33,7 +33,12 @@ const run = async () => {
   const phonation = await page.$eval('#div_a1 > div:nth-child(10)',e => e.innerText)
   var definition = { brief : brief, folk : folk, glyph : glyph, expla : expla, phonation : phonation };
   //console.log('definition:%j',definition);
-  console.log('definition:',JSON.stringify(definition, null, 2));
+  console.log(brief+"\n");
+  console.log(folk);
+  console.log(glyph);
+  console.log(expla);
+  console.log(phonation);
+  //console.log('definition:',JSON.stringify(definition, null, 2));
 
   //await page.screenshot({ path: './dev-images/xhzd.png' });
   //console.log('png saved!');
