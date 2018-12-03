@@ -53,14 +53,12 @@ const xhzd = async () => {
 
 const sc_xzqh = async () => {
 
-  var p = require('commander');
-
   const browser = await puppeteer.launch(config.puppeteer);
   const page = await browser.newPage();
   await page.setViewport(config.puppeteer.viewport);
 
   await page.goto("http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/51.html");
-  await page.waitForNavigation({ waitUntil: 'networkidle2' });
+  // await page.waitForNavigation({ waitUntil: 'networkidle2' });
 
   const sdm = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(1) > a',e => e.textContent);
   const sname = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(2) > a', e => e.textContent);

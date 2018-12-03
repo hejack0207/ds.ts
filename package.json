@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "data spider",
   "bin": {
-    "xhzd": "out/run.js"
+    "ds": "out/run.js"
   },
   "license": "MIT",
   "scripts": {
