@@ -60,18 +60,36 @@ interface Xzqh {
   children: Xzqh[]
 }
 
-const sc_xzqh_parse = async (page :puppeteer.Page, url :string, xzqhs :Xzqh[]) => {
-  await page.goto(url);
+async function parse_sc_xzqh(page :puppeteer.Page, xzqh :Xzqh){
+  await page.goto(xzqh.href);
+
+  switch(xzqh.level){
+    case 1:
+        page.$$eval('tr .countytr', trs => {
+          trs.forEach(tr => {
+          })
+        });
+        break;
+    case 2:
+        break;
+  }
+}
+
+const sc_xzqh_parse = async (page :puppeteer.Page, page_url :string, xzqhs :Xzqh[]) => {
+  await page.goto(page_url);
   // await page.waitForNavigation({ waitUntil: 'networkidle2' });
 
   let xzqh :Xzqh;
-  if (url.endsWith("51.html")){
+  if (page_url.endsWith("51.html")){
     for (let index = 2; index <= 22; index++) {
         const sdm = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(1) > a',e => e.textContent);
         const sname = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(2) > a', e => e.textContent);
         const url = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(2) > a', e => e.getAttribute('href'));
+
         console.log('daima:'+sdm+",name:"+sname);
-        xzqh = { code: sdm, name: sname, level:1, parent: '510000', children: [], href: url};
+        let page_dir = page_url.substring(0, page_url.lastIndexOf("/"));
+        xzqh = { code: sdm, name: sname, level:1, parent: '510000', children: [], href: page_dir + "/" +url};
+        parse_sc_xzqh(page, xzqh);
         xzqhs.push(xzqh);
     }
   }
