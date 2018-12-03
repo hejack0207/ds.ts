@@ -51,6 +51,14 @@ const xhzd = async () => {
   await browser.close();
 };
 
+interface Xzqh {
+  code: string;
+  name: string;
+  level: number;
+  parent: string;
+  children: Xzqh[]
+}
+
 const sc_xzqh = async () => {
 
   const browser = await puppeteer.launch(config.puppeteer);
@@ -62,16 +70,20 @@ const sc_xzqh = async () => {
 
   let sdms : string[] = [];
   let snames : string[] = [];
+  let xzqh :Xzqh;
+  let xzqhs :Xzqh[] = [];
   for (let index = 2; index <= 22; index++) {
       const sdm = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(1) > a',e => e.textContent);
       const sname = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(2) > a', e => e.textContent);
       console.log('daima:'+sdm+",name:"+sname);
-      // sdms.push(sdm);
-      // snames.push(sname);
+      xzqh = { code: sdm, name: sname, level:1, parent: '510000', children: []};
+      xzqhs.push(xzqh);
+      sdms.push(sdm);
+      snames.push(sname);
   }
 
   //await page.screenshot({ path: './dev-images/xhzd.png' });
-  // console.log('daima:'+sdms+",name:"+snames);
+  console.log(xzqhs);
 
   await browser.close();
 };
