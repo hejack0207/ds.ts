@@ -1,7 +1,7 @@
 {
-  "name": "xhzd",
+  "name": "ds",
   "version": "0.1.0",
-  "description": "xinhua dictionary",
+  "description": "data spider",
   "bin": {
     "xhzd": "out/run.js"
   },

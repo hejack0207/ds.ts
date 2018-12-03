@@ -5,7 +5,7 @@ import * as puppeteer from "puppeteer";
 //const puppeteer = require('puppeteer');
 const config = require('./config');
   
-const run = async () => {
+const xhzd = async () => {
 
   var p = require('commander');
   p.version('1.0.0')
@@ -51,8 +51,32 @@ const run = async () => {
   await browser.close();
 };
 
+const sc_xzqh = async () => {
+
+  var p = require('commander');
+
+  const browser = await puppeteer.launch(config.puppeteer);
+  const page = await browser.newPage();
+  await page.setViewport(config.puppeteer.viewport);
+
+  await page.goto("http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/51.html");
+  await page.waitForNavigation({ waitUntil: 'networkidle2' });
+
+  const sdm = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(1) > a',e => e.textContent);
+  const sname = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(2) > a', e => e.textContent);
+
+  //await page.screenshot({ path: './dev-images/xhzd.png' });
+  console.log('daima:'+sdm+",name:"+sname);
+
+  await browser.close();
+};
+
 export async function main(argv: string[]) {
-  run().catch((error) => {
+  // xhzd().catch((error) => {
+  //     console.error('CATCH ERROR: ', error);
+  //     process.exit(1);
+  // });
+  sc_xzqh().catch((error) => {
       console.error('CATCH ERROR: ', error);
       process.exit(1);
   });
