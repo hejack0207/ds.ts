@@ -60,11 +60,18 @@ const sc_xzqh = async () => {
   await page.goto("http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/51.html");
   // await page.waitForNavigation({ waitUntil: 'networkidle2' });
 
-  const sdm = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(1) > a',e => e.textContent);
-  const sname = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(2) > a', e => e.textContent);
+  let sdms : string[] = [];
+  let snames : string[] = [];
+  for (let index = 2; index <= 22; index++) {
+      const sdm = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(1) > a',e => e.textContent);
+      const sname = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(2) > a', e => e.textContent);
+      console.log('daima:'+sdm+",name:"+sname);
+      // sdms.push(sdm);
+      // snames.push(sname);
+  }
 
   //await page.screenshot({ path: './dev-images/xhzd.png' });
-  console.log('daima:'+sdm+",name:"+sname);
+  // console.log('daima:'+sdms+",name:"+snames);
 
   await browser.close();
 };
