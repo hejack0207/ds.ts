@@ -60,19 +60,20 @@ interface Xzqh {
   children: Xzqh[]
 }
 
-const sc_xzqh_parse = async (page :puppeteer.Page, url :string) => {
+const sc_xzqh_parse = async (page :puppeteer.Page, url :string, xzqhs :Xzqh[]) => {
   await page.goto(url);
   // await page.waitForNavigation({ waitUntil: 'networkidle2' });
 
   let xzqh :Xzqh;
-  let xzqhs :Xzqh[] = [];
-  for (let index = 2; index <= 22; index++) {
-      const sdm = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(1) > a',e => e.textContent);
-      const sname = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(2) > a', e => e.textContent);
-      const url = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(2) > a', e => e.getAttribute('href'));
-      console.log('daima:'+sdm+",name:"+sname);
-      xzqh = { code: sdm, name: sname, level:1, parent: '510000', children: [], href: url};
-      xzqhs.push(xzqh);
+  if (url.endsWith("51.html")){
+    for (let index = 2; index <= 22; index++) {
+        const sdm = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(1) > a',e => e.textContent);
+        const sname = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(2) > a', e => e.textContent);
+        const url = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(2) > a', e => e.getAttribute('href'));
+        console.log('daima:'+sdm+",name:"+sname);
+        xzqh = { code: sdm, name: sname, level:1, parent: '510000', children: [], href: url};
+        xzqhs.push(xzqh);
+    }
   }
 
 }
@@ -83,19 +84,8 @@ const sc_xzqh = async () => {
   const page = await browser.newPage();
   await page.setViewport(config.puppeteer.viewport);
 
-  await page.goto("http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/51.html");
-  // await page.waitForNavigation({ waitUntil: 'networkidle2' });
-
-  let xzqh :Xzqh;
   let xzqhs :Xzqh[] = [];
-  for (let index = 2; index <= 22; index++) {
-      const sdm = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(1) > a',e => e.textContent);
-      const sname = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(2) > a', e => e.textContent);
-      const url = await page.$eval('body > table:nth-child(3) > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child('+index+') > td:nth-child(2) > a', e => e.getAttribute('href'));
-      console.log('daima:'+sdm+",name:"+sname);
-      xzqh = { code: sdm, name: sname, level:1, parent: '510000', children: [], href: url};
-      xzqhs.push(xzqh);
-  }
+  await sc_xzqh_parse(page, "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/51.html", xzqhs);
 
   //await page.screenshot({ path: './dev-images/xhzd.png' });
   console.log(xzqhs);
