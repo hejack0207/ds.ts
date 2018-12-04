@@ -60,13 +60,25 @@ interface Xzqh {
   children: Xzqh[]
 }
 
-async function parse_sc_xzqh(page :puppeteer.Page, xzqh :Xzqh){
+async function parse_sc_xzqh(browser: puppeteer.Browser, xzqh :Xzqh){
+  console.log("parsing "+xzqh.href);
+  const page = await browser.newPage();
+  await page.setViewport(config.puppeteer.viewport);
   await page.goto(xzqh.href);
 
   switch(xzqh.level){
     case 1:
-        page.$$eval('tr .countytr', trs => {
+        page.$$eval('.countytr', trs => {
           trs.forEach(tr => {
+            let e: Xzqh = {
+              name: tr.textContent || '',
+              code: '',
+              href: '',
+              level: 2,
+              parent: '',
+              children: []
+            }
+            xzqh.children.push(e);
           })
         });
         break;
@@ -75,7 +87,7 @@ async function parse_sc_xzqh(page :puppeteer.Page, xzqh :Xzqh){
   }
 }
 
-const sc_xzqh_parse = async (page :puppeteer.Page, page_url :string, xzqhs :Xzqh[]) => {
+const sc_xzqh_parse = async (browser: puppeteer.Browser, page :puppeteer.Page, page_url :string, xzqhs :Xzqh[]) => {
   await page.goto(page_url);
   // await page.waitForNavigation({ waitUntil: 'networkidle2' });
 
@@ -89,7 +101,7 @@ const sc_xzqh_parse = async (page :puppeteer.Page, page_url :string, xzqhs :Xzqh
         console.log('daima:'+sdm+",name:"+sname);
         let page_dir = page_url.substring(0, page_url.lastIndexOf("/"));
         xzqh = { code: sdm, name: sname, level:1, parent: '510000', children: [], href: page_dir + "/" +url};
-        parse_sc_xzqh(page, xzqh);
+        parse_sc_xzqh(browser, xzqh);
         xzqhs.push(xzqh);
     }
   }
@@ -103,7 +115,7 @@ const sc_xzqh = async () => {
   await page.setViewport(config.puppeteer.viewport);
 
   let xzqhs :Xzqh[] = [];
-  await sc_xzqh_parse(page, "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/51.html", xzqhs);
+  await sc_xzqh_parse(browser,page, "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/51.html", xzqhs);
 
   //await page.screenshot({ path: './dev-images/xhzd.png' });
   console.log(xzqhs);
