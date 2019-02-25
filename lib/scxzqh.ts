@@ -17,7 +17,7 @@ export const sc_xzqh_parse = async (browser: puppeteer.Browser, page :puppeteer.
         // console.log('daima:'+sdm+",name:"+sname);
         let page_dir = page_url.substring(0, page_url.lastIndexOf("/"));
         xzqh = { code: sdm, name: sname, level:1, parent: '510000', children: [], href: page_dir + "/" +url};
-        //await parse_sc_xzqh(browser, xzqh);
+        await parse_sc_xzqh(browser, xzqh);
         xzqhs.push(xzqh);
     }
   }

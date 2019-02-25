@@ -8,8 +8,9 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "clean": "rm -rf out/*",
     "test": "npm run build && cp -Rf test/fixtures out/test/ && mocha --ui tdd out/test/",
-    "prepublish": "npm run build"
+    "prepublish": "npm run clean && npm run build"
   },
   "dependencies": {
     "@types/commander": "^2.12.2",
