@@ -26,10 +26,11 @@ export const sc_xzqh_parse = async (browser: puppeteer.Browser, page_url :string
 }
 
 async function parse_sc_xzqh(browser: puppeteer.Browser, xzqh :Xzqh){
-  console.log("parsing "+xzqh.href);
   const page = await browser.newPage();
   await page.setViewport(config.puppeteer.viewport);
   await page.goto(xzqh.href);
+  console.log("parsing "+xzqh.href);
+  await page.screenshot({path: "/tmp/"+xzqh.name+".png"});
 
   switch(xzqh.level){
     case 1:
