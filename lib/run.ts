@@ -14,14 +14,11 @@ async function main(argv: string[]) {
 }
 
 const spider = async () => {
-
   const browser = await puppeteer.launch(config.puppeteer);
-
   let xzqhs :scxzqh.Xzqh[] = [];
   await scxzqh.sc_xzqh_parse(browser,"http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/51.html", xzqhs);
 
   console.log(xzqhs);
-
   await browser.close();
 };
 
