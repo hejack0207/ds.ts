@@ -33,6 +33,7 @@ async function parse_sc_xzqh(browser: puppeteer.Browser, xzqh :Xzqh){
 
   switch(xzqh.level){
     case 1:
+        console.log("fetching county");
         await page.$$eval('tr.countytr', trs => {
           console.log("count:"+trs.length);
           trs.forEach(tr => {
