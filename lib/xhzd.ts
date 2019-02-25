@@ -25,4 +25,5 @@ const xhzd = async (browser: puppeteer.Browser, hanzi: string) => {
   console.log("definition:"+definition+"\n");
 
   await browser.close();
+  return definition;
 };
