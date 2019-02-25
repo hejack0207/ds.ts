@@ -3,7 +3,7 @@
 import * as puppeteer from "puppeteer";
 const config = require('./config');
   
-export const sc_xzqh_parse = async (browser: puppeteer.Browser):Promise<Xzqh[]> => {
+export const sc_xzqh_parse = async (browser: puppeteer.Browser) => {
   const xzqhs = [];
   const page_url = "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/51.html";
   const page = await browser.newPage();
