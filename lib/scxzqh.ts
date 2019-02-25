@@ -23,7 +23,6 @@ export const sc_xzqh_parse = async (browser: puppeteer.Browser, page :puppeteer.
   }
 }
 
-/*
 async function parse_sc_xzqh(browser: puppeteer.Browser, xzqh :Xzqh){
   console.log("parsing "+xzqh.href);
   const page = await browser.newPage();
@@ -50,7 +49,6 @@ async function parse_sc_xzqh(browser: puppeteer.Browser, xzqh :Xzqh){
         break;
   }
 }
-*/
 
 export interface Xzqh {
   code: string;
