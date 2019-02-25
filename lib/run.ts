@@ -6,12 +6,27 @@ import * as scxzqh from "./scxzqh";
 
 const config = require('./config');
   
-export async function main(argv: string[]) {
-  scxzqh.sc_xzqh().catch((error) => {
+async function main(argv: string[]) {
+  spider().catch((error) => {
       console.error('CATCH ERROR: ', error);
       process.exit(1);
   });
 }
+
+const spider = async () => {
+
+  const browser = await puppeteer.launch(config.puppeteer);
+  const page = await browser.newPage();
+  await page.setViewport(config.puppeteer.viewport);
+
+  let xzqhs :scxzqh.Xzqh[] = [];
+  await scxzqh.sc_xzqh_parse(browser,page, "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/51.html", xzqhs);
+
+  console.log(xzqhs);
+
+  await browser.close();
+};
+
 
 if (require.main === module) {
   main(process.argv);
