@@ -4,7 +4,9 @@
 import * as puppeteer from "puppeteer";
 const config = require('./config');
   
-export const sc_xzqh_parse = async (browser: puppeteer.Browser, page :puppeteer.Page, page_url :string, xzqhs :Xzqh[]) => {
+export const sc_xzqh_parse = async (browser: puppeteer.Browser, page_url :string, xzqhs :Xzqh[]) => {
+  const page = await browser.newPage();
+  await page.setViewport(config.puppeteer.viewport);
   await page.goto(page_url);
 
   let xzqh :Xzqh;
@@ -31,7 +33,8 @@ async function parse_sc_xzqh(browser: puppeteer.Browser, xzqh :Xzqh){
 
   switch(xzqh.level){
     case 1:
-        page.$$eval('.countytr', trs => {
+        await page.$$eval('tr.countytr', trs => {
+          console.log("count:"+trs.length);
           trs.forEach(tr => {
             let e: Xzqh = {
               name: tr.textContent || '',
@@ -41,7 +44,8 @@ async function parse_sc_xzqh(browser: puppeteer.Browser, xzqh :Xzqh){
               parent: '',
               children: []
             }
-            xzqh.children.push(e);
+            console.log("county:"+e);
+            //xzqh.children.push(e);
           })
         });
         break;
