@@ -2,7 +2,6 @@
 'use strict';
 
 import * as puppeteer from "puppeteer";
-//const puppeteer = require('puppeteer');
 const config = require('./config');
   
 const xhzd = async () => {
@@ -37,16 +36,11 @@ const xhzd = async () => {
   const expla_output = await page.$eval('#div_a1 > div:nth-child(9)',e => e.outerHTML)
   const phonation_output = await page.$eval('#div_a1 > div:nth-child(10)',e => e.outerHTML)
   var definition = { brief : brief_output, folk : folk_output, glyph : glyph_output, expla : expla_output, phonation : phonation_output };
-  //console.log('definition:%j',definition);
   p.brief && console.log(brief_output+"\n");
   p.folk && console.log(folk_output);
   p.glyph && console.log(glyph_output);
   p.expl && console.log(expla_output);
   p.phonation && console.log(phonation_output);
-  //console.log('definition:',JSON.stringify(definition, null, 2));
-
-  //await page.screenshot({ path: './dev-images/xhzd.png' });
-  //console.log('png saved!');
 
   await browser.close();
 };
