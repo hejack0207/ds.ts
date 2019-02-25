@@ -3,7 +3,9 @@
 import * as puppeteer from "puppeteer";
 const config = require('./config');
   
-export const sc_xzqh_parse = async (browser: puppeteer.Browser, page_url :string, xzqhs :Xzqh[]) => {
+export const sc_xzqh_parse = async (browser: puppeteer.Browser):Promise<Xzqh[]> => {
+  const xzqhs = [];
+  const page_url = "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/51.html";
   const page = await browser.newPage();
   await page.setViewport(config.puppeteer.viewport);
   await page.goto(page_url);
@@ -22,6 +24,7 @@ export const sc_xzqh_parse = async (browser: puppeteer.Browser, page_url :string
         xzqhs.push(xzqh);
     }
   }
+  return xzqhs;
 }
 
 async function parse_sc_xzqh(browser: puppeteer.Browser, xzqh :Xzqh){
