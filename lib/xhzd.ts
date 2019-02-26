@@ -3,7 +3,7 @@
 import * as puppeteer from "puppeteer";
 const config = require('./config');
   
-const xhzd = async (browser: puppeteer.Browser, hanzi: string) => {
+export const parse_xhzd = async (browser: puppeteer.Browser, hanzi: string) => {
 
   const page = await browser.newPage();
   await page.setViewport(config.puppeteer.viewport);

@@ -3,7 +3,7 @@
 import * as puppeteer from "puppeteer";
 const config = require('./config');
   
-export const sc_xzqh_parse = async (browser: puppeteer.Browser) => {
+export const parse_sc_xzqh = async (browser: puppeteer.Browser) => {
   const xzqhs = [];
   const page_url = "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/51.html";
   const page = await browser.newPage();
@@ -20,14 +20,14 @@ export const sc_xzqh_parse = async (browser: puppeteer.Browser) => {
         // console.log('daima:'+sdm+",name:"+sname);
         let page_dir = page_url.substring(0, page_url.lastIndexOf("/"));
         xzqh = { code: sdm, name: sname, level:1, parent: '510000', children: [], href: page_dir + "/" +url};
-        await parse_sc_xzqh(browser, xzqh);
+        await parse_sc_xzqh_county(browser, xzqh);
         xzqhs.push(xzqh);
     }
   }
   return xzqhs;
 }
 
-async function parse_sc_xzqh(browser: puppeteer.Browser, xzqh :Xzqh){
+async function parse_sc_xzqh_county(browser: puppeteer.Browser, xzqh :Xzqh){
   const page = await browser.newPage();
   await page.setViewport(config.puppeteer.viewport);
   await page.goto(xzqh.href);
