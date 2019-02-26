@@ -10,11 +10,10 @@ const config = require('./config');
 
 p.version('1.0.0')
   .usage(`${process.argv0}\n`)
-  .option("-c,--command <xhzd|scxzqh>")
+  .option("-c,--cmd <xhzd|scxzqh>")
   .option("-z,--hanzi <hanzi>");
 
 p.parse(process.argv);
-console.log("hanzi:"+p.hanzi);  
 
 async function main(argv: string[]) {
     spider().catch((error) => {
@@ -25,13 +24,15 @@ async function main(argv: string[]) {
 
 const spider = async () => {
   const browser = await puppeteer.launch(config.puppeteer);
-  switch(p.command.name){
+  switch(p.cmd){
     case "scxzqh":
       const xzqhs = await scxzqh.parse_sc_xzqh(browser);
       console.log(xzqhs);
       break;
     case "xhzd":
-      await xhzd.parse_xhzd(browser, p.hanzi);
+      console.log("hanzi:"+p.hanzi);  
+      const result = await xhzd.parse_xhzd(browser, p.hanzi);
+      console.log(result);
       break;
   }
 
