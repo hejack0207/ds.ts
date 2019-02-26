@@ -11,7 +11,7 @@ const config = require('./config');
 p.version('1.0.0')
   .usage(`${process.argv0}\n`)
   .option("-c,--command <xhzd|scxzqh>")
-  .option("-z,--hanzi hanzi");
+  .option("-z,--hanzi <hanzi>");
 
 p.parse(process.argv);
 console.log("hanzi:"+p.hanzi);  
