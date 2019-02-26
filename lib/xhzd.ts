@@ -9,6 +9,7 @@ export const parse_xhzd = async (browser: puppeteer.Browser, hanzi: string) => {
   await page.setViewport(config.puppeteer.viewport);
 
   await page.goto("http://tool.httpcn.com/Zi/");
+  await page.screenshot({path: "/tmp/"+hanzi+".png"});
 
   await page.waitForSelector("#wd");
 
