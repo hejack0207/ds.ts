@@ -19,11 +19,9 @@
     "commander": "^2.12.2",
     "ding-env-config": "^1.2.0",
     "lodash.defaultsdeep": "^4.6.0",
-    "puppeteer": "^0.13.0",
-    "typescript": "^2.4.2"
+    "typescript": "^2.8.2"
   },
   "devDependencies": {
-    "@types/puppeteer": "^0.13.10",
     "eslint": "^4.11.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0"

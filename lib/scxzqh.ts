@@ -30,7 +30,7 @@ export const parse_sc_xzqh = async (browser: puppeteer.Browser) => {
 async function parse_sc_xzqh_county(browser: puppeteer.Browser, xzqh :Xzqh){
   const page = await browser.newPage();
   await page.setViewport(config.puppeteer.viewport);
-  await page.goto(xzqh.href);
+  await page.goto(xzqh.href == null ? "": xzqh.href);
   console.log("parsing "+xzqh.href);
   await page.screenshot({path: "/tmp/"+xzqh.name+".png"});
 
@@ -59,10 +59,10 @@ async function parse_sc_xzqh_county(browser: puppeteer.Browser, xzqh :Xzqh){
 }
 
 export interface Xzqh {
-  code: string;
-  name: string;
-  level: number;
-  parent: string;
-  href: string,
+  code: string | null;
+  name: string | null;
+  level: number | null;
+  parent: string | null;
+  href: string | null,
   children: Xzqh[]
 }

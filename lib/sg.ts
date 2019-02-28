@@ -9,7 +9,20 @@ export const run = async (browser: puppeteer.Browser) => {
   await page.setViewport(config.puppeteer.viewport);
 
   let url="http://172.16.0.251:81/";
+
+//  await browser.on('targetcreated', async () => {
+//    console.log('On targetcreated!');
+//    const foundPage = await changePage(url);
+//    if(foundPage) {
+//        console.log('Found new page.');
+//        await foundPage.screenshot({path: "/tmp/sg.png"});
+//    } else {
+//        console.log('Failed to find new page.');
+//    }
+//  });
+
   await page.goto(url);
+//  const popup = await browser.waitForTarget(target => target.url() === url);
 
 //  async function changePage(url: string){
 //    let pages = await browser.pages();
@@ -23,18 +36,7 @@ export const run = async (browser: puppeteer.Browser) => {
 //    }
 //    return popup;
 //  }
-//
-//  await browser.on('targetcreated', async () => {
-//    console.log('On targetcreated!');
-//    const foundPage = await changePage(url);
-//    if(foundPage) {
-//        console.log('Found new page.');
-//        await foundPage.screenshot({path: "/tmp/sg.png"});
-//    } else {
-//        console.log('Failed to find new page.');
-//    }
-//  });
-//
+
 //  await page.on('dialog', async () => {
 //    console.log('On dialog!');
 //    const foundPage = await changePage(url);
@@ -46,10 +48,11 @@ export const run = async (browser: puppeteer.Browser) => {
 //    }
 //  });
 
-  const pages = await browser.pages(); // get all open pages by the browser
-  console.log(`pages total: ${pages.length}`);
-  const popup = pages[pages.length - 1]; // the popup should be the last page opened
-  await popup.screenshot({path: "/tmp/sg.png"});
+//  const pages = await browser.pages(); // get all open pages by the browser
+//  console.log(`pages total: ${pages.length}`);
+//  const popup = pages[pages.length - 1]; // the popup should be the last page opened
+//  await page.screenshot({path: "/tmp/sg0.png"});
+//  await popup.screenshot({path: "/tmp/sg1.png"});
 
 //  await page.waitForSelector("#wd");
 //  await page.type("#wd", hanzi);
