@@ -5,12 +5,13 @@ import * as puppeteer from "puppeteer";
 import * as p from "commander";
 import * as scxzqh from "./scxzqh";
 import * as xhzd from "./xhzd";
+import * as sg from "./sg";
 
 const config = require('./config');
 
 p.version('1.0.0')
   .usage(`${process.argv0}\n`)
-  .option("-c,--cmd <xhzd|scxzqh>")
+  .option("-c,--cmd <xhzd|scxzqh|sg>")
   .option("-z,--hanzi <hanzi>");
 
 p.parse(process.argv);
@@ -34,6 +35,9 @@ const spider = async () => {
       const result = await xhzd.parse_xhzd(browser, p.hanzi);
       console.log(result);
       break;
+    case "sg":
+      console.log("sg");  
+      await sg.run(browser);
   }
 
   await browser.close();
