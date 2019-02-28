@@ -36,7 +36,7 @@ const spider = async () => {
       console.log(result);
       break;
     case "sg":
-      console.log("sg");  
+      console.log("sg popup");  
       await sg.run(browser);
   }
 
