@@ -1,6 +1,7 @@
 'use strict';
 
 import * as puppeteer from "puppeteer";
+import { watchFile } from "fs";
 const config = require('./config');
   
 export const run = async (browser: puppeteer.Browser) => {
@@ -8,62 +9,15 @@ export const run = async (browser: puppeteer.Browser) => {
   const page = await browser.newPage();
   await page.setViewport(config.puppeteer.viewport);
 
-  //let url="http://172.16.0.251:81/";
   let url="http://172.16.0.251:81/login/Login.jsp?logintype=1";
 
-//  await browser.on('targetcreated', async () => {
-//    console.log('On targetcreated!');
-//    const foundPage = await changePage(url);
-//    if(foundPage) {
-//        console.log('Found new page.');
-//        await foundPage.screenshot({path: "/tmp/sg.png"});
-//    } else {
-//        console.log('Failed to find new page.');
-//    }
-//  });
-
-  await page.goto(url);
-  await page.screenshot({path: "/tmp/sg.png"});
-  /*
-  const target = await browser.waitForTarget(target => target.url() === url);
-  const popup = await target.page();
-  await popup.screenshot({path: "/tmp/sg.png"});
-  */
-
-//  async function changePage(url: string){
-//    let pages = await browser.pages();
-//    let popup = page;
-//    for(let i = 0; i < pages.length; i += 1) {
-//        if(pages[i].url() === url) {
-//            popup = pages[i];
-//            console.log(`page for url ${url} found, index is ${i}`);
-//            break;
-//        }
-//    }
-//    return popup;
-//  }
-
-//  await page.on('dialog', async () => {
-//    console.log('On dialog!');
-//    const foundPage = await changePage(url);
-//    if(foundPage) {
-//        console.log('Found new page.');
-//        await foundPage.screenshot({path: "/tmp/sg.png"});
-//    } else {
-//        console.log('Failed to find new page.');
-//    }
-//  });
-
-  /*
-  const targets = await browser.targets();
-  targets.forEach(target => console.log(`target.url:${target.url()}\n`));
-  console.log(`targets:${targets.length}`);
-  const pages = await browser.pages(); // get all open pages by the browser
-  console.log(`pages total: ${pages.length}`);
-  const popup = pages[pages.length - 1]; // the popup should be the last page opened
-  await page.screenshot({path: "/tmp/sg0.png"});
-  await popup.screenshot({path: "/tmp/sg1.png"});
-  */
+  try{
+    await page.goto(url);
+    //await new Promise(x => setTimeout(x, 3000));
+    await page.screenshot({path: "/tmp/sg.png"});
+  }catch(e){
+    console.log("error:"+e);
+  }
 
 //  await page.waitForSelector("#wd");
 //  await page.type("#wd", hanzi);
