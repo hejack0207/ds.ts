@@ -8,7 +8,8 @@ export const run = async (browser: puppeteer.Browser) => {
   const page = await browser.newPage();
   await page.setViewport(config.puppeteer.viewport);
 
-  let url="http://172.16.0.251:81/";
+  //let url="http://172.16.0.251:81/";
+  let url="http://172.16.0.251:81/login/Login.jsp?logintype=1";
 
 //  await browser.on('targetcreated', async () => {
 //    console.log('On targetcreated!');
@@ -22,7 +23,12 @@ export const run = async (browser: puppeteer.Browser) => {
 //  });
 
   await page.goto(url);
-//  const popup = await browser.waitForTarget(target => target.url() === url);
+  await page.screenshot({path: "/tmp/sg.png"});
+  /*
+  const target = await browser.waitForTarget(target => target.url() === url);
+  const popup = await target.page();
+  await popup.screenshot({path: "/tmp/sg.png"});
+  */
 
 //  async function changePage(url: string){
 //    let pages = await browser.pages();
@@ -48,11 +54,16 @@ export const run = async (browser: puppeteer.Browser) => {
 //    }
 //  });
 
-//  const pages = await browser.pages(); // get all open pages by the browser
-//  console.log(`pages total: ${pages.length}`);
-//  const popup = pages[pages.length - 1]; // the popup should be the last page opened
-//  await page.screenshot({path: "/tmp/sg0.png"});
-//  await popup.screenshot({path: "/tmp/sg1.png"});
+  /*
+  const targets = await browser.targets();
+  targets.forEach(target => console.log(`target.url:${target.url()}\n`));
+  console.log(`targets:${targets.length}`);
+  const pages = await browser.pages(); // get all open pages by the browser
+  console.log(`pages total: ${pages.length}`);
+  const popup = pages[pages.length - 1]; // the popup should be the last page opened
+  await page.screenshot({path: "/tmp/sg0.png"});
+  await popup.screenshot({path: "/tmp/sg1.png"});
+  */
 
 //  await page.waitForSelector("#wd");
 //  await page.type("#wd", hanzi);
